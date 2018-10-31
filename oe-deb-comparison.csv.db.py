@@ -34,9 +34,5 @@ with open('oe-deb-comparison.csv', 'r') as f:
 
             cursor.execute(sql_exec)
 
-sql_exec = "SELECT * FROM %s" % table
-for row in cursor.execute(sql_exec):
-        print (row)
-
 connection.commit()
 connection.close()
