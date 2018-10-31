@@ -1,0 +1,5 @@
+0. clone and run https://github.com/iwamatsu/yocto-recipes-update 
+1. run poky-pkg-db-updater.py
+2. run deb-pkg-db-updater.py
+3. run oe-deb-comparison.csv.db.py
+4. webui.py
