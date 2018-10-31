@@ -35,16 +35,19 @@ cursor = connection.cursor()
 # create table
 sql_exec = "CREATE TABLE IF NOT EXISTS %s (deb_pkg_name text PRIMARY KEY, deb_pkg_ver text)" % (base_table)
 cursor.execute(sql_exec)
+sql_exec = "CREATE TABLE IF NOT EXISTS %s (deb_pkg_name text PRIMARY KEY, deb_pkg_ver text)" % (table)
+cursor.execute(sql_exec)
 
 # create pkg list of poky
 pkg_list = []
 sql_exec = "SELECT * FROM %s" % (base_table)
-for rows in cursor.execute(sql_exec):
-    for row in rows:
-        if row[2] != '':
-            pkg_list.append(row[2])
-        else:
-            pkg_list.append(row[0])
+cursor.execute(sql_exec)
+rows = cursor.fetchall()
+for row in rows:
+    if row[2] != '':
+        pkg_list.append(row[2])
+    else:
+        pkg_list.append(row[0])
 
 for data in udd_rows:
     if data['source'] in pkg_list:
