@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="UTF-8">
+  <title>Poky(rocko)/debian(buster) version comparison</title>
+</head>
+<body>
+  <h1>Poky(rocko)/debian(buster) version comparison</h1>
+
+  <table border="1">
+  <tr>
+  <th bgcolor="#b0c4de">Poky recipe name</th>
+  <th bgcolor="#b0c4de">Poky's verion</th>
+  <th bgcolor="#b0c4de">Debian source package name</th>
+  <th bgcolor="#b0c4de">Debian's verion</th>
+  </tr>
+
+  %for pkg in pkgs_list:
+    <tr>
+      <td>{{pkg["poky"]}}</td>
+      <td>{{pkg["poky_ver"]}}</td>
+      <td>{{pkg["deb"]}}</td>
+      <td>{{pkg["deb_ver"]}}</td>
+    </tr>
+  %end
+  </table>
+</body>
+</html>
