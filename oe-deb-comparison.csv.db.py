@@ -8,7 +8,16 @@ import csv
 
 dbpath = './pkgdb.sqlite'
 deb_codename = 'buster'
-codename = 'rocko'
+codenames = ['rocko', 'sumo', 'master']
+
+if len(sys.argv) == 1 or len(sys.argv) > 2:
+    exit()
+
+codename = sys.argv[1]
+
+if codename not in codenames:
+    exit()
+
 table = "pkginfo_%s_%s" % (codename, deb_codename)
 
 connection = sqlite3.connect(dbpath)
@@ -33,6 +42,10 @@ with open('oe-deb-comparison.csv', 'r') as f:
                 print ("Update: %s %s" % (row[3], row[0]))
 
             cursor.execute(sql_exec)
+
+sql_exec = "SELECT * FROM %s" % table
+for row in cursor.execute(sql_exec):
+        print (row)
 
 connection.commit()
 connection.close()
