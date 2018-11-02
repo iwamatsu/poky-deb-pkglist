@@ -4,12 +4,13 @@ import sqlite3
 from bottle import route, run, template
 
 dbpath = './pkgdb.sqlite'
-codename = 'rocko'
 deb_codename = 'buster'
-base_table = "pkginfo_%s_%s" % (codename, deb_codename)
-deb_table = "pkginfo_%s" % (deb_codename)
+codenames = ['rocko', 'sumo', 'master']
 
-def get_pkgs_list():
+def get_pkgs_list(codename):
+
+    base_table = "pkginfo_%s_%s" % (codename, deb_codename)
+    deb_table = "pkginfo_%s" % (deb_codename)
 
     connection = sqlite3.connect(dbpath)
     cursor = connection.cursor()
@@ -55,10 +56,13 @@ def get_pkgs_list():
 
     return pkgs_list
 
-@route("/")
-def index():
-    pkgs_list = get_pkgs_list()
-    return template("index", pkgs_list=pkgs_list)
+@route("/pokypkginfo/<codename>")
+def pokypkginfo(codename):
+
+    if codename not in codenames:
+        return 'no data'
+    pkgs_list = get_pkgs_list(codename)
+    return template("index", pkgs_list=pkgs_list, codename=codename)
 
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True)
