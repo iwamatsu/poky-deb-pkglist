@@ -10,7 +10,8 @@ dbpath = './pkgdb.sqlite'
 deb_codename = 'buster'
 codenames = ['rocko', 'sumo', 'master']
 
-if len(sys.argv) == 1 or len(sys.argv) > 2:
+# request code name of poky
+if len(sys.argv) != 2:
     exit()
 
 codename = sys.argv[1]
